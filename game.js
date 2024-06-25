@@ -54,9 +54,10 @@ function getUserChoice() {
     result = result.toLowerCase();
     return result;
 }
-function playRound(computerChoice, userChoice){
+function findWinner(computerChoice, userChoice){
     if (computerChoice == userChoice){
         console.log(`\n We both guessed ${computerChoice}!`);
+        return "Tie"
 
     } else if (computerChoice == "rock") {
         if (userChoice == "paper") {
@@ -80,33 +81,36 @@ function playRound(computerChoice, userChoice){
             return "User";
         }else {
             console.log("\n You lose!");
-            return "Computer"
+            return "Computer";
         }
     }
 }
 
-let rounds = prompt("How many rounds do you want to play?")
+function playRound(){
+    let computerChoice = getComputerChoice();
+    let userChoice = getUserChoice();
+    console.log("Rock, Paper, Scissors, Shoot!")
+    console.log(`Computer: ${computerChoice}, User: ${userChoice}`)
+    let winner = findWinner(computerChoice, userChoice);
+    return winner;
+}
+
+let rounds = 2;
+while (rounds % 2 == 0){
+    rounds = parseInt(prompt("How many rounds do you want to play (odd number) ?"));
+}
+
 let userScore = 0;
 let computerScore = 0;
-let computerChoice = getComputerChoice();
-let userChoice = getUserChoice();
 
-setTimeout(function() {
-    console.log("Rock,")
-}, 450);
-setTimeout(function() {
-    console.log("Paper,")
-}, 900);
-setTimeout(function() {
-    console.log("Scissors,")
-}, 1350);
-setTimeout(function() {
-    console.log("Shoot!")
-}, 1800);
-
-setTimeout(function() {
-    for (let i = 0; i < rounds; i++){
-        playRound(computerChoice, userChoice);
+for (let i = 0; i < rounds; i++){
+    winner = playRound();
+    if (winner == "Computer"){
+        computerScore += 1;
+    } else if (winner == "User") {
+        userScore += 1;
     }
-}, 2500)
+}
+console.log(`Computer score: ${computerScore}, User score: ${userScore}`)
+
 
