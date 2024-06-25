@@ -112,5 +112,3 @@ for (let i = 0; i < rounds; i++){
     }
 }
 console.log(`Computer score: ${computerScore}, User score: ${userScore}`)
-
-
