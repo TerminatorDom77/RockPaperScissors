@@ -47,15 +47,66 @@ function getComputerChoice() {
     } else if (randomNum == 3) {
         result = "scissors";
     }
-    console.log(result);
     return result;
 }
 function getUserChoice() {
     let result = prompt("Rock, paper, or scissors?");
     result = result.toLowerCase();
-    console.log(result);
     return result;
 }
+function playRound(computerChoice, userChoice){
+    if (computerChoice == userChoice){
+        console.log(`\n We both guessed ${computerChoice}!`);
 
+    } else if (computerChoice == "rock") {
+        if (userChoice == "paper") {
+            console.log("\n You beat me!");
+            return "User";
+        } else if (userChoice == "scissors") {
+            console.log("\n You lose!");
+            return "Computer";
+        }
+    } else if (computerChoice == "paper"){
+        if (userChoice == "rock"){
+            console.log("\n You lose!");
+            return "Computer";
+        } else if (userChoice == "scissors") {
+            console.log("\n You beat me!");
+            return "User";
+        }
+    } else if (computerChoice == "scissors") {
+        if (userChoice = "rock"){
+            console.log("\n You beat me!");
+            return "User";
+        }else {
+            console.log("\n You lose!");
+            return "Computer"
+        }
+    }
+}
+
+let rounds = prompt("How many rounds do you want to play?")
+let userScore = 0;
+let computerScore = 0;
 let computerChoice = getComputerChoice();
 let userChoice = getUserChoice();
+
+setTimeout(function() {
+    console.log("Rock,")
+}, 450);
+setTimeout(function() {
+    console.log("Paper,")
+}, 900);
+setTimeout(function() {
+    console.log("Scissors,")
+}, 1350);
+setTimeout(function() {
+    console.log("Shoot!")
+}, 1800);
+
+setTimeout(function() {
+    for (let i = 0; i < rounds; i++){
+        playRound(computerChoice, userChoice);
+    }
+}, 2500)
+
