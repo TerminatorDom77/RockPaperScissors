@@ -14,30 +14,37 @@ function getComputerChoice() {
 function findWinner(computerChoice, userChoice){
     if (computerChoice == userChoice){
         console.log(`\n We both guessed ${computerChoice}!`);
+        results.textContent = `\n We both guessed ${computerChoice}!`;
         return "Tie"
 
     } else if (computerChoice == "rock") {
         if (userChoice == "paper") {
             console.log("\n You beat me!");
+            results.textContent = "You beat me!";
             return "User";
         } else if (userChoice == "scissors") {
             console.log("\n You lose!");
+            results.textContent = "You lose!";
             return "Computer";
         }
     } else if (computerChoice == "paper"){
         if (userChoice == "rock"){
             console.log("\n You lose!");
+            results.textContent = "You lose!";
             return "Computer";
         } else if (userChoice == "scissors") {
             console.log("\n You beat me!");
+            results.textContent = "You beat me!";
             return "User";
         }
     } else if (computerChoice == "scissors") {
         if (userChoice = "rock"){
             console.log("\n You beat me!");
+            results.textContent = "You beat me!";
             return "User";
         }else {
             console.log("\n You lose!");
+            results.textContent = "You lose!";
             return "Computer";
         }
     }
@@ -46,6 +53,7 @@ function findWinner(computerChoice, userChoice){
 function playRound(userChoice){
     let computerChoice = getComputerChoice();
     let playerChoice = userChoice.toLowerCase();
+    let winner = "";
     beginningText.textContent = "Rock, ";
     setTimeout(() => {
         beginningText.textContent += "Paper, ";
@@ -60,33 +68,45 @@ function playRound(userChoice){
         choices.textContent = `Computer: ${computerChoice}, User: ${playerChoice}`;
         console.log("Rock, Paper, Scissors, Shoot!")
         console.log(`Computer: ${computerChoice}, User: ${playerChoice}`)
-        let winner = findWinner(computerChoice, playerChoice);
-        return winner;
+        winner = findWinner(computerChoice, playerChoice);
     }, 1600);
+    setTimeout(() => {
+        if (winner == "Computer"){
+            computerScore += 1;
+        } else if (winner == "User") {
+            userScore += 1;
+        }
+        console.log(computerScore);
+        console.log(userScore)
+        results.textContent += `\nComputer Score: ${computerScore}, User Score: ${userScore}`;
+        console.log(`Computer score: ${computerScore}, User score: ${userScore}`);
+    }, 2000);
 }
 
 let userScore = 0;
 let computerScore = 0;
 
 function game(userChoice){
-    let winner = playRound(userChoice);
-    if (winner == "Computer"){
-        computerScore += 1;
-    } else if (winner == "User") {
-        userScore += 1;
-    }
-    console.log(`Computer score: ${computerScore}, User score: ${userScore}`);
+    beginningText.textContent = "";
+    choices.textContent = "";
+    results.textContent = "";
+    playRound(userChoice);
+
 }
 const rockBtn = document.getElementById("Rock");
 const paperBtn = document.getElementById("Paper");
 const scissorsBtn = document.getElementById("Scissors");
 const buttons = [rockBtn, paperBtn, scissorsBtn];
-const resultsDiv = document.getElementById("results");
+const gameText = document.getElementById("gameText");
 const beginningText = document.getElementById("beginningText");
 const choices = document.getElementById("choices");
 choices.style.marginTop = "10px";
-resultsDiv.appendChild(beginningText);
-resultsDiv.appendChild(choices);
+const results = document.getElementById("results");
+results.style.marginTop = "10px";
+
+gameText.appendChild(beginningText);
+gameText.appendChild(choices);
+gameText.appendChild(results);
 beginningText.style.marginTop = "30px";
 
 for (let btn of buttons){
