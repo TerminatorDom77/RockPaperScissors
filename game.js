@@ -10,11 +10,7 @@ function getComputerChoice() {
     }
     return result;
 }
-function getUserChoice() {
-    let result = prompt("Rock, paper, or scissors?");
-    result = result.toLowerCase();
-    return result;
-}
+
 function findWinner(computerChoice, userChoice){
     if (computerChoice == userChoice){
         console.log(`\n We both guessed ${computerChoice}!`);
@@ -49,30 +45,29 @@ function findWinner(computerChoice, userChoice){
 
 function playRound(userChoice){
     let computerChoice = getComputerChoice();
-    //let userChoice = getUserChoice();
-    let playerChoice = userChoice;
-    console.log("Rock, Paper, Scissors, Shoot!")
-    console.log(`Computer: ${computerChoice}, User: ${playerChoice}`)
-    let winner = findWinner(computerChoice, playerChoice);
-    return winner;
+    let playerChoice = userChoice.toLowerCase();
+    beginningText.textContent = "Rock, ";
+    setTimeout(() => {
+        beginningText.textContent += "Paper, ";
+    }, 400);
+    setTimeout(() => {
+        beginningText.textContent += "Scissors, ";
+    }, 800);
+    setTimeout(() => {
+        beginningText.textContent += "Shoot!";
+    }, 1200);
+    setTimeout(() => {
+        choices.textContent = `Computer: ${computerChoice}, User: ${playerChoice}`;
+        console.log("Rock, Paper, Scissors, Shoot!")
+        console.log(`Computer: ${computerChoice}, User: ${playerChoice}`)
+        let winner = findWinner(computerChoice, playerChoice);
+        return winner;
+    }, 1600);
 }
-
-/*let rounds = 2;
-while (rounds % 2 == 0){
-    rounds = parseInt(prompt("How many rounds do you want to play (odd number) ?"));
-}*/
 
 let userScore = 0;
 let computerScore = 0;
 
-/*for (let i = 0; i < rounds; i++){
-    winner = playRound();
-    if (winner == "Computer"){
-        computerScore += 1;
-    } else if (winner == "User") {
-        userScore += 1;
-    }
-}*/
 function game(userChoice){
     let winner = playRound(userChoice);
     if (winner == "Computer"){
@@ -86,13 +81,16 @@ const rockBtn = document.getElementById("Rock");
 const paperBtn = document.getElementById("Paper");
 const scissorsBtn = document.getElementById("Scissors");
 const buttons = [rockBtn, paperBtn, scissorsBtn];
-let userChoice = null;
-let counter = 0;
+const resultsDiv = document.getElementById("results");
+const beginningText = document.getElementById("beginningText");
+const choices = document.getElementById("choices");
+choices.style.marginTop = "10px";
+resultsDiv.appendChild(beginningText);
+resultsDiv.appendChild(choices);
+beginningText.style.marginTop = "30px";
 
 for (let btn of buttons){
-    counter += 1;
-    userChoice = btn.id;
     btn.addEventListener('click', () => {
-        game(userChoice);
+        game(btn.id);
     });
 }
