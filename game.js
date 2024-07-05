@@ -1,42 +1,3 @@
-/*
-ask the user how many rounds they want to do (odd number)
-have computer randomly choose rock, paper, or scissors
-prompt the user to pick rock paper or scissors (probably by having them type it)
-if computer chose rock:
-    if user chose rock:
-        tell the user that both it and the computer chose rock and to do it again
-    if user chose paper:
-        tell the user they won the round
-        start next round / go back to beginning
-    if user chose scissors:
-        tell user they lost the round
-        start next round
-
-if computer chose paper:
-    if user chose rock:
-        tell user they lost the round
-        start next round    
-    if user chose paper:
-        tell the user that both it and the computer chose paper and to do it again
-    if user chose scissors:
-        tell user they won the round
-        start next round
-
-if computer chose scissors:
-    if user chose rock:
-        tell user they won the round
-        start next round
-    if user chose paper:
-        tell user they lost the round
-        start next round    
-    if user chose scissors:
-        tell the user that both it and the computer chose scissors and to do it again
-
-Remember to keep track of how many times computer won and user won
-Compare computer wins and user wins
-Display score and who won
-*/
-
 function getComputerChoice() {
     let result = null;
     randomNum = Math.ceil(Math.random() * 3);
@@ -86,29 +47,52 @@ function findWinner(computerChoice, userChoice){
     }
 }
 
-function playRound(){
+function playRound(userChoice){
     let computerChoice = getComputerChoice();
-    let userChoice = getUserChoice();
+    //let userChoice = getUserChoice();
+    let playerChoice = userChoice;
     console.log("Rock, Paper, Scissors, Shoot!")
-    console.log(`Computer: ${computerChoice}, User: ${userChoice}`)
-    let winner = findWinner(computerChoice, userChoice);
+    console.log(`Computer: ${computerChoice}, User: ${playerChoice}`)
+    let winner = findWinner(computerChoice, playerChoice);
     return winner;
 }
 
-let rounds = 2;
+/*let rounds = 2;
 while (rounds % 2 == 0){
     rounds = parseInt(prompt("How many rounds do you want to play (odd number) ?"));
-}
+}*/
 
 let userScore = 0;
 let computerScore = 0;
 
-for (let i = 0; i < rounds; i++){
+/*for (let i = 0; i < rounds; i++){
     winner = playRound();
     if (winner == "Computer"){
         computerScore += 1;
     } else if (winner == "User") {
         userScore += 1;
     }
+}*/
+function game(userChoice){
+    let winner = playRound(userChoice);
+    if (winner == "Computer"){
+        computerScore += 1;
+    } else if (winner == "User") {
+        userScore += 1;
+    }
+    console.log(`Computer score: ${computerScore}, User score: ${userScore}`);
 }
-console.log(`Computer score: ${computerScore}, User score: ${userScore}`)
+const rockBtn = document.getElementById("Rock");
+const paperBtn = document.getElementById("Paper");
+const scissorsBtn = document.getElementById("Scissors");
+const buttons = [rockBtn, paperBtn, scissorsBtn];
+let userChoice = null;
+let counter = 0;
+
+for (let btn of buttons){
+    counter += 1;
+    userChoice = btn.id;
+    btn.addEventListener('click', () => {
+        game(userChoice);
+    });
+}
