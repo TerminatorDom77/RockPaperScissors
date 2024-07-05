@@ -90,7 +90,14 @@ function game(userChoice){
     beginningText.textContent = "";
     choices.textContent = "";
     results.textContent = "";
-    playRound(userChoice);
+    if (userScore < 5 && computerScore < 5){
+        playRound(userChoice);
+    }
+    if (userScore == 5){
+        results.textContent = "You won!"
+    }else if (userScore == 5){
+        results.textContent = "The computer won!"
+    }
 
 }
 const rockBtn = document.getElementById("Rock");
